@@ -1,8 +1,7 @@
 require("dotenv").config()
 const User = require("../models/User")
 const bcrypt = require("bcryptjs")
-const jwt = require("jsonwebtoken")
-const SALT = process.env.SALT || "Salzin? KKKKKK"
+
 /**
  * 
  * @param {import("express").Request} req 
