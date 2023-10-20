@@ -11,6 +11,18 @@ const register = async (req,res)=>{
     const {fullName,password,nickname,email} = req.body
     let hashedPassword
     try {
+        const user = await User.findOne({$or:[{nickname:nickname},{email:email}]})
+        if(user){
+            return res.status(400).json({
+                success:false,
+                message:"User Already Registered!"
+            })
+        }
+    } catch (error) {
+        console.error(error)
+        res.sendStatus(500)
+    }
+    try {
         hashedPassword = await bcrypt.hash(password,10)
     } catch (error) {
         console.error(error)
