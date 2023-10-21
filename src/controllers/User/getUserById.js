@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose")
 const User = require("../../models/User")
 
 /**
@@ -9,7 +10,14 @@ const getUserById = async (req,res)=>{
     const id = req.params.id
 
     try {
-        const user = await User.findById(id,"-password")
+        const isId = mongoose.isValidObjectId(id)
+        let user = null
+        if(isId){
+            user = await User.findById(id,"-password")
+
+        }else{
+            user = await User.findOne({nickname:id},"-password")
+        }
 
         if(!user){
             return res.status(404).json({
