@@ -17,8 +17,11 @@ const getUserById = async (req,res)=>{
                 message:"User not found"
             })
         }
+
+        return res.status(200).json(user.toJSON())
     } catch (error) {
-        
+        console.error(error)
+        return res.sendStatus(500)
     }
 }
 
