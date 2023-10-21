@@ -8,7 +8,7 @@ const UserValidator = require("../lib/UserValidator")
 const registerValidator = (req, res, next) => {
 	const { email, password, nickname, fullName } = req.body;
 
-	if (!email || !password || !nickname || fullName){
+	if (!email || !password || !nickname || !fullName){
         
 		return res.status(400).json({
             success: false,
@@ -35,5 +35,9 @@ const registerValidator = (req, res, next) => {
             message: "Invalid nickname. must contain at least 4 characters and no spaces in between",
         })
     }
-
+    next()
 };
+
+module.exports = {
+    registerValidator,
+}
